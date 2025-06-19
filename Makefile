@@ -7,7 +7,8 @@ migrate-status:
 	$(MIGRATE) status --url "mysql://$(DB_USER):$(DB_PASS)@:$(DB_FORWARD_PORT)/$(DB_NAME)"
 
 migrate-diff:
-	$(MIGRATE) diff --env gorm
+	@read -p  "What is the name of migration?" NAME; \
+	$(MIGRATE) diff $$NAME --env gorm
 
 migrate-apply:
 	$(MIGRATE) apply --url "mysql://$(DB_USER):$(DB_PASS)@:$(DB_FORWARD_PORT)/$(DB_NAME)"

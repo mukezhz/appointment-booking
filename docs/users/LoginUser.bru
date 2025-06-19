@@ -1,0 +1,47 @@
+meta {
+  name: Login User
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}/users/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email": "doctor@example.com"
+  }
+}
+
+tests {
+  test("should login user successfully", function() {
+    const response = res;
+    expect(response.status).to.equal(200);
+    expect(response.body).to.have.property("uuid");
+    expect(response.body).to.have.property("email");
+    expect(response.body).to.have.property("role");
+  })
+}
+
+docs {
+  title: "Login User"
+  description: """
+    Authenticates a user using their email.
+    
+    This endpoint verifies user credentials using Cognito and returns the user details.
+    The actual authentication token is handled by the Cognito service.
+  
+    ## Required Fields
+    - email
+  
+    ## Response
+    Returns the user object if authentication is successful.
+    
+    ## Notes
+    - Authentication is handled by AWS Cognito
+    - JWT token should be included in subsequent requests in the Authorization header
+  """
+}

@@ -1,0 +1,60 @@
+meta {
+  name: Update User Profile
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseURL}}/users/profile
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: mock
+}
+
+body:json {
+    {
+      "first_name": "Updated John",
+      "last_name": "Updated Doe",
+      "first_name_ja": "更新されたジョン",
+      "last_name_ja": "更新されたドゥ"
+    }
+}
+
+tests {
+  test("should update user profile successfully", function() {
+    const response = res;
+    expect(response.status).to.equal(200);
+    expect(response.body).to.have.property("uuid");
+    expect(response.body.first_name).to.equal("Updated John");
+    expect(response.body.last_name).to.equal("Updated Doe");
+  })
+}
+
+docs {
+  title: "Update User Profile"
+  description: """
+    Updates the profile information of the authenticated user.
+    
+    ## Authentication
+    Requires a valid JWT token in the Authorization header:
+    `Authorization: Bearer <token>`
+  
+    ## Updatable Fields
+    All fields are optional. Only provide the fields you want to update:
+    - first_name
+    - last_name
+    - first_name_ja (Japanese first name)
+    - last_name_ja (Japanese last name)
+  
+    ## Response
+    Returns the complete updated user profile.
+  
+    ## Security
+    - Endpoint is protected by Cognito authentication
+    - User can only update their own profile
+    - Email and role cannot be updated through this endpoint
+  """
+}

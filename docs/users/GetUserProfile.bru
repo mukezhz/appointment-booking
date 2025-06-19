@@ -1,0 +1,52 @@
+meta {
+  name: Get User Profile
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{baseURL}}/users/profile
+  body: none
+  auth: inherit
+}
+
+headers {
+  X-UID: d6eb8bbc-787e-4cfc-9043-976740e25d9a
+}
+
+tests {
+  test("should get user profile successfully", function() {
+    const response = res;
+    expect(response.status).to.equal(200);
+    expect(response.body).to.have.property("uuid");
+    expect(response.body).to.have.property("email");
+    expect(response.body).to.have.property("role");
+    expect(response.body).to.have.property("first_name");
+    expect(response.body).to.have.property("last_name");
+  })
+}
+
+docs {
+  title: "Get User Profile"
+  description: """
+    Retrieves the profile information of the authenticated user.
+    
+    ## Authentication
+    Requires a valid JWT token in the Authorization header:
+    `Authorization: Bearer <token>`
+  
+    ## Response
+    Returns the complete user profile including:
+    - UUID
+    - Email
+    - Role
+    - First Name
+    - Last Name
+    - Japanese Names (if available)
+    - Active Status
+  
+    ## Security
+    - Endpoint is protected by Cognito authentication
+    - User can only access their own profile
+  """
+}

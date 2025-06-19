@@ -1,0 +1,83 @@
+meta {
+  name: Register User
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}/users/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email": "doctor@example.com",
+    "role": "doctor",
+    "first_name": "John",
+    "last_name": "Doe",
+    "first_name_ja": "ジョン",
+    "last_name_ja": "ドゥ"
+  }
+}
+
+tests {
+  test("should create a new user successfully", function() {
+      const response = res;
+      expect(response.status).to.equal(201);
+      expect(response.body).to.have.property("item");
+      expect(response.body).to.have.property("message");
+      expect(response.body.item).to.have.property("uuid");
+      expect(response.body.item).to.have.property("email");
+      expect(response.body.item).to.have.property("role");
+      expect(response.body.item).to.have.property("first_name");
+      expect(response.body.item).to.have.property("last_name");
+      expect(response.body.message).to.equal("User registered successfully");
+  })
+}
+
+docs {
+  title: "Register New User"
+  description: """
+    Creates a new user account with the provided details.
+    
+    ## Role Types
+    - doctor
+    - patient
+    - admin
+
+    ## Required Fields
+    - email
+    - role
+    - first_name
+    - last_name
+
+    ## Optional Fields
+    - first_name_ja (Japanese first name)
+    - last_name_ja (Japanese last name)
+
+    ## Response Format
+    ```json
+    {
+      "item": {
+        "uuid": "string",
+        "email": "string",
+        "role": "string",
+        "first_name": "string",
+        "last_name": "string",
+        "first_name_ja": "string",
+        "last_name_ja": "string",
+        "is_active": boolean
+      },
+      "message": "User registered successfully"
+    }
+    ```
+  """
+  
+      ## Optional Fields
+      - first_name_ja (Japanese first name)
+      - last_name_ja (Japanese last name)
+  
+      ## Response
+      Returns the created user object with a 201 status code.
+}

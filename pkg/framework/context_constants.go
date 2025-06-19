@@ -5,7 +5,8 @@ const (
 	Claims = "Claims"
 
 	// UID -> authenticated user's id
-	UID = "UID"
+	UID       = "UID"
+	UIDHeader = "X-UID"
 
 	// File uploaded file from file upload middleware
 	File = "@uploaded_file"

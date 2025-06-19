@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "vibe_coding",
+  "name": "appointment-booking",
   "type": "collection",
   "ignore": [
     "node_modules",

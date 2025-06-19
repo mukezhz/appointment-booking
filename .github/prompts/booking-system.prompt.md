@@ -1,6 +1,6 @@
 ---
 mode: 'agent'
-tools: ['write_file', 'edit_file', 'read_file', 'delete_file']
+tools: []
 description: 'Generate a project of your **Appointment Booking API** requirements for a **doctor-patient platform**'
 ---
 
