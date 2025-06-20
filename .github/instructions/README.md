@@ -20,7 +20,6 @@ Welcome to our Go Clean Architecture project documentation. This documentation i
 ### 2. API Development
 - [API Overview](api/01-api-overview.md)
 - [Request/Response Standards](api/02-request-response.md)
-- [Error Handling](api/03-error-handling.md)
 
 #### Implementation Guides
 - [Authentication](api/implementation/01-authentication.md)
@@ -28,9 +27,12 @@ Welcome to our Go Clean Architecture project documentation. This documentation i
 - [Testing](api/implementation/03-testing.md)
 
 ### 3. Error Handling
-- [Error Types](errors/01-error-types.md)
-- [Error Mapping](errors/02-error-mapping.md)
-- [Custom Errors](errors/03-custom-errors.md)
+- [Complete Error Guide](error-guide.md) - Comprehensive guide to error handling including:
+  - Base error types and creation
+  - Database error handling
+  - API error responses
+  - Best practices
+  - Testing guidelines
 
 ### 4. Testing
 - [Testing Strategy](testing/01-strategy.md)
@@ -44,7 +46,7 @@ Before contributing to this project:
 1. Read the [Project Overview](architecture/01-project-overview.md)
 2. Follow the [Feature Development Guide](architecture/03-feature-development.md)
 3. Review our [API Standards](api/02-request-response.md)
-4. Understand our [Error Handling](errors/01-error-types.md)
+4. Understand our [Error Handling](errors/05-complete-error-guide.md)
 5. Write tests following our [Testing Strategy](testing/01-strategy.md)
 
 ## Need Help?
