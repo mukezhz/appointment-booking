@@ -1,53 +1,139 @@
 # Feature Development Guide
 
-This guide explains how to add new features to the application while maintaining clean architecture principles.
+This guide walks you through the practical steps of adding new features to the application while following our clean architecture principles.
 
-## Adding New Features
+## Development Workflow
 
-When adding a new feature to the application, follow these steps:
+### 1. Planning Phase
+1. Define the feature requirements
+2. Design the domain model and its relationships
+3. Plan the API endpoints and request/response structures
+4. Identify required business rules and validations
 
-### 1. Plan Your Domain
+### 2. Implementation Phase
 
-1. **Define the Domain Model**
-   ```go
-   // domain/models/feature.go
-   type Feature struct {
-       gorm.Model
-       UUID      types.BinaryUUID `json:"uuid" gorm:"type:binary(16);uniqueIndex"`
-       Name      string           `json:"name" gorm:"type:varchar(255)"`
-       Status    FeatureStatus    `json:"status" gorm:"type:varchar(20)"`
-       // Add other fields
-   }
-   ```
+Follow our layered architecture pattern, implementing each component in order:
 
-2. **Create the Feature Package**
-   ```bash
-   domain/
-   └── feature/
-       ├── controller.go   # HTTP handlers
-       ├── dto.go         # Request/response structures
-       ├── errorz.go      # Domain-specific errors
-       ├── module.go      # DI configuration
-       ├── repository.go  # Database operations
-       ├── route.go       # Route definitions
-       └── service.go     # Business logic
-   ```
+1. **Domain Model** - Define your core business entities
+2. **Repository** - Implement data access
+3. **Service** - Add business logic
+4. **Controller** - Handle HTTP requests
+5. **Routes** - Configure API endpoints
+6. **Module** - Set up dependency injection
 
-### 2. Define Domain Errors
+See our [Project Overview](01-project-overview.md) for architectural principles and [API Overview](../api/01-api-overview.md) for API design guidelines.
 
-In `errorz.go`:
+### Implementation Example
+
+Here's a complete example of implementing a new feature:
+
+#### A. Domain Model
 ```go
-var (
-    ErrFeatureNotFound = errorz.NewNotFoundError("feature not found")
-    ErrInvalidFeature  = errorz.NewBadRequestError("invalid feature")
-)
+// domain/models/feature.go
+type Feature struct {
+    gorm.Model
+    UUID      types.BinaryUUID `json:"uuid" gorm:"type:binary(16);uniqueIndex"`
+    Name      string           `json:"name" gorm:"type:varchar(255)"`
+    Status    FeatureStatus    `json:"status" gorm:"type:varchar(20)"`
+}
 
-var FeatureErrMap = map[error]bool{
-    ErrFeatureNotFound: true,
+// Add domain methods here
+func (f *Feature) Validate() error {
+    // Implement validation logic
 }
 ```
 
-### 3. Implement Repository
+#### B. Feature Package Structure
+```
+domain/
+└── feature/
+    ├── controller.go   # HTTP handlers
+    ├── dto.go         # Request/response structures
+    ├── errorz.go      # Domain-specific errors
+    ├── module.go      # DI configuration
+    ├── repository.go  # Database operations
+    ├── route.go       # Route definitions
+    └── service.go     # Business logic
+```
+
+#### C. Implementation Steps
+
+1. **Define DTOs (dto.go)**
+```go
+type CreateFeatureRequest struct {
+    Name   string        `json:"name" binding:"required"`
+    Status FeatureStatus `json:"status" binding:"required,oneof=active inactive"`
+}
+
+type FeatureResponse struct {
+    UUID      string        `json:"uuid"`
+    Name      string        `json:"name"`
+    Status    FeatureStatus `json:"status"`
+    CreatedAt time.Time     `json:"created_at"`
+}
+```
+
+2. **Implement Repository Layer**
+```go
+type Repository interface {
+    Create(ctx context.Context, feature *models.Feature) error
+    FindByUUID(ctx context.Context, uuid types.BinaryUUID) (*models.Feature, error)
+    // Add other methods
+}
+```
+
+3. **Implement Service Layer**
+```go
+type Service interface {
+    CreateFeature(ctx context.Context, req *CreateFeatureRequest) (*FeatureResponse, error)
+}
+
+func (s *service) CreateFeature(ctx context.Context, req *CreateFeatureRequest) (*FeatureResponse, error) {
+    // Implement business logic here
+}
+```
+
+4. **Setup Module and DI**
+```go
+var Module = fx.Module("feature",
+    fx.Provide(
+        NewRepository,
+        NewService,
+        NewController,
+        NewRoute,
+    ),
+    fx.Invoke(RegisterRoutes),
+)
+```
+
+### 3. Testing Phase
+
+1. **Write Unit Tests**
+   - Test each layer independently
+   - Use mocks for dependencies
+   - Cover error cases
+
+2. **Write Integration Tests**
+   - Test the complete feature flow
+   - Use test containers for database tests
+   - Test API endpoints
+
+3. **Write Documentation**
+   - Update API documentation
+   - Add examples
+   - Document any special considerations
+
+## Validation Checklist
+
+- [ ] Domain model properly structured
+- [ ] All layers implemented (Repository, Service, Controller)
+- [ ] Error handling follows project standards
+- [ ] Input validation implemented
+- [ ] Tests written and passing
+- [ ] Documentation updated
+- [ ] Code follows project style guide
+- [ ] Proper logging implemented
+- [ ] Metrics added (if required)
 
 ```go
 type Repository struct {

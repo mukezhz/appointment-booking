@@ -4,49 +4,75 @@
 
 This project implements a modern web application using Go and Clean Architecture principles. The codebase is organized to be maintainable, testable, and scalable while following best practices in software design.
 
+## Clean Architecture Layers
+
+Our application follows a layered architecture pattern that enforces separation of concerns:
+
+### 1. Domain Models Layer (`domain/models/`)
+- Core business entities and logic
+- Framework-independent
+- Rich domain models with validation
+- GORM tags for persistence
+- Example: User, Booking, Availability models
+
+### 2. Repository Layer (`domain/<feature>/repository.go`)
+- Data access abstractions
+- Database operations
+- Framework-independent interfaces
+- Implementation can use any data store
+- Example: GORM implementations
+
+### 3. Service Layer (`domain/<feature>/service.go`)
+- Business logic implementation
+- Uses repository interfaces
+- Coordinates across repositories
+- Implements use cases
+- Transaction management
+
+### 4. Controller Layer (`domain/<feature>/controller.go`)
+- HTTP request handling
+- Request validation
+- Response formatting
+- Error handling
+- Uses service interfaces
+
 ## Key Principles
 
 1. **Clean Architecture**
    - Clear separation of concerns
-   - Independent of frameworks and external agencies
+   - Dependencies point inward
    - Highly testable design
-   - Independent of UI, database, or external services
+   - Framework independence
 
 2. **Domain-Driven Design**
-   - Business logic centered around domain models
-   - Rich domain models with behavior
-   - Clear boundaries between domains
-   - Ubiquitous language in code
+   - Business logic in domain models
+   - Clear bounded contexts
+   - Ubiquitous language
+   - Rich domain behavior
 
 3. **Dependency Injection**
-   - Uses uber-go/fx for DI
-   - Loose coupling between components
+   - Uses uber-go/fx
+   - Loose coupling
    - Clear dependency graphs
-   - Easy testing and mocking
-
-4. **Standard Patterns**
-   - Consistent code organization
-   - Standard error handling
-   - Common response formats
-   - Reusable components
+   - Testable components
 
 ## Key Technologies
 
 1. **Core Framework**
-   - Go (1.21+)
+   - Go 1.21+
    - Gin Web Framework
-   - GORM for database access
-   - uber-go/fx for dependency injection
+   - GORM ORM
+   - uber-go/fx
 
-2. **Testing**
-   - Ginkgo for BDD-style testing
-   - TestContainers for integration tests
+2. **Testing Tools**
+   - Ginkgo (BDD-style)
+   - TestContainers
    - Mocking utilities
 
 3. **Infrastructure**
    - MySQL database
-   - Redis for caching (optional)
-   - AWS services integration
+   - Redis (optional)
+   - AWS services
 
 ## Project Goals
 

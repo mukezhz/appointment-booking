@@ -1,35 +1,25 @@
-# Go Clean Architecture
+# Go Clean Architecture 
 
-Clean Architecture with [Gin Web Framework](https://github.com/gin-gonic/gin)
+A robust Go backend API using clean architecture principles, designed for maintainability and testability.
 
-## Features :star:
+## 🌟 Features
 
--   Clean Architecture written in Go
--   Application backbone with [Gin Web Framework](https://github.com/gin-gonic/gin)
--   Dependency injection using [uber-go/fx](https://pkg.go.dev/go.uber.org/fx)
--   Uses fully featured [GORM](https://gorm.io/index.html)
--   Database migrations with [Atlas](https://atlasgo.io/) for declarative, versioned schema changes
--   BDD-style testing with [Ginkgo](https://onsi.github.io/ginkgo/)
--   Isolated integration testing with [TestContainers](https://testcontainers.com/)
+- Clean Architecture patterns with [Gin Web Framework](https://github.com/gin-gonic/gin)
+- Dependency injection using [uber-go/fx](https://pkg.go.dev/go.uber.org/fx)
+- Database management with [GORM](https://gorm.io) and [Atlas](https://atlasgo.io/)
+- BDD testing with [Ginkgo](https://onsi.github.io/ginkgo/) and [TestContainers](https://testcontainers.com/)
 
-## Documentation
+## 📚 Documentation
 
-Comprehensive documentation for this project is available in the `.github/instructions` directory:
+All project documentation is maintained in the `.github/instructions` directory:
 
-- [Architecture Guide](.github/instructions/architecture/01-project-overview.md) - Project structure, layers, and coding guidelines
-- [API Development Guide](.github/instructions/architecture/03-feature-development.md) - Creating REST APIs with examples
-- [Error Handling Guide](.github/instructions/error-guide.md) - Complete guide for error handling patterns and best practices
-- [Testing Guide](.github/instructions/testing-guide.md) - Writing service and API tests
+- [Getting Started](.github/instructions/setup/getting-started.md) - Quick setup guide
+- [Architecture Guide](.github/instructions/architecture/01-project-overview.md) - Design patterns and structure
+- [Development Guide](.github/instructions/architecture/03-feature-development.md) - API development workflow
+- [Testing Guide](.github/instructions/testing/01-strategy.md) - Writing tests
+- [Error Handling](.github/instructions/error-guide.md) - Error management patterns
 
-See the [Instructions README](.github/instructions/README.md) for more details about the documentation.
-
-## Linter setup
-
-Need [Python3](https://www.python.org/) to setup linter in git pre-commit hook.
-
-```zsh
-make lint-setup
-```
+See [Documentation Index](.github/instructions/README.md) for the complete documentation.
 
 ---
 
