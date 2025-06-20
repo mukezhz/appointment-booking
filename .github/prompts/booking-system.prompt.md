@@ -4,108 +4,59 @@ tools: []
 description: 'Generate a project of your **Appointment Booking API** requirements for a **doctor-patient platform**'
 ---
 
-## 🩺 Doctor-Patient Appointment Booking Platform: API Requirements
+# 📆 Minimal Appointment Booking System – Project Specification
 
-### 🔹 1. **User Roles**
-
-* **Doctor**
-* **Patient**
-* **Admin (optional)** – for managing users, appointments, analytics, etc.
+A lightweight backend API built using **Gin (Go)** to demonstrate appointment scheduling functionality, with minimal features, LLM integration potential, and safe concurrency handling.
 
 ---
 
-### 🔹 2. **Core Functional Features**
+## ✅ Functional Requirements
 
-#### 🗓️ Doctor Availability Management
+### 1. User Authentication
 
-* Doctor can define their availability by:
+Allow a single user to register and log in to manage their availability and view bookings.
 
-  * Date
-  * Time range (e.g., 10:00 AM to 2:00 PM)
-  * Slot duration (e.g., 15/30 minutes per patient)
-* Recurring availability (e.g., every Monday 10:00–12:00)
-* Update or delete availability
-* Prevent overlaps in availability
-
-#### 🧑‍⚕️ Patient Booking
-
-* Patients can:
-
-  * View available time slots of a doctor
-  * Book an available slot
-  * Cancel or reschedule a booking (based on a policy)
-* **Concurrency Control (Race Condition Handling)**:
-
-  * Add a **temporary buffer lock** on a selected slot (e.g., 30 seconds) during the booking flow
-  * Once booked, the slot becomes unavailable
-  * Cancelled slots enter a cooldown (e.g., 1–2 minutes) before becoming visible to others
+#### Endpoints
+- `POST /auth/register` – Register with email and password
+- `POST /auth/login` – Login to receive JWT token
 
 ---
 
-### 🔹 3. **Notifications (Post Booking)**
+### 2. Set Weekly Availability
 
-* On successful booking, send notifications to both patient and doctor via:
+User defines their recurring weekly availability.
 
-  * Email
-  * SMS
-  * WhatsApp (using API like Twilio, WhatsApp Business, etc.)
-* Retry mechanism in case notification fails
-* Optional: In-app notification or push notifications
+#### Fields
+- `weekday`: string (`Monday`, `Tuesday`, etc.)
+- `start_time`: string (`09:00`)
+- `end_time`: string (`17:00`)
 
----
-
-### 🔹 4. **Authentication & Authorization**
-
-* JWT-based token auth (for API security)
-* Role-based access control:
-
-  * Doctors can only manage their own availability and appointments
-  * Patients can only see/book with doctors
-  * Admins (if any) can view/manage all data
+#### Endpoints
+- `GET /availability` – View availability slots
+- `POST /availability` – Create availability slot
 
 ---
 
-### 🔹 5. **Rate Limiting / Abuse Prevention**
+### 3. Public Booking (Guest)
 
-* Prevent spam bookings or DDoS by:
+A guest can view the user’s available slots and book one by submitting their name, email, and preferred time.
 
-  * Rate limiting endpoints (e.g., 5 bookings/min/user)
-  * CAPTCHA (for public API if exposed)
+#### Booking Fields
+- `guest_name`: string
+- `guest_email`: string
+- `date`: string (`YYYY-MM-DD`)
+- `time`: string (`HH:MM`)
 
----
-
-### 🔹 6. **Database Design (High-level)**
-
-#### Tables:
-
-* `users` (shared table for both doctors and patients)
-* `doctor_profiles`
-* `patient_profiles`
-* `availabilities`
-* `appointments`
-* `notifications`
-* `audit_logs` (optional for tracking changes/events)
+#### Endpoints
+- `GET /public/slots` – Get available slots for a date range
+- `POST /public/book` – Book a slot
 
 ---
 
-### 🔹 7. **System Design Considerations**
+### 4. View Bookings (User)
 
-* Race Condition:
+The user can view all their appointments.
 
-  * Use **pessimistic locking** during slot booking
-  * Optionally, Redis for short-term locks (e.g., using `SETNX` or TTL keys)
-* Use message queues (e.g., RabbitMQ/NATS/Kafka) to handle:
+#### Endpoints
+- `GET /bookings` – List of guest bookings
 
-  * Sending notifications
-  * Delayed release of cancelled slots
-* Observability:
-
-  * Add structured logging, monitoring (Prometheus), alerting
-
----
-
-### 🔹 8. **Admin Dashboard (Optional - for future phase)**
-
-* View/manage users
-* View analytics (e.g., most booked doctors, popular time slots)
-* Manual override of appointments
