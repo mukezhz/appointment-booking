@@ -1,0 +1,26 @@
+meta {
+  name: DeleteAvailability
+  type: http
+}
+
+delete {
+  url: {{baseUrl}}/api/v1/availability/{{availabilityId}}
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer {{token}}
+}
+
+vars {
+  availabilityId: "uuid-goes-here"
+}
+
+tests {
+  test("should delete availability slot") {
+    const response = res;
+    expect(response.status).toBe(200);
+    expect(response.body.detail).toBe("Availability slot deleted");
+  }
+}

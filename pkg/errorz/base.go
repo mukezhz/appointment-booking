@@ -45,3 +45,13 @@ func JoinError(message string, base error) error {
 	}
 	return fmt.Errorf("%v %w", message, base)
 }
+
+func Wrap(err error, message string) error {
+	if err == nil {
+		return nil
+	}
+	if message == "" {
+		return err
+	}
+	return fmt.Errorf("%s: %w", message, err)
+}

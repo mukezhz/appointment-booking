@@ -1,0 +1,28 @@
+meta {
+  name: ListAvailability
+  type: http
+}
+
+get {
+  url: {{baseUrl}}/api/v1/availability?doctor_id={{doctorId}}&from_date={{fromDate}}&to_date={{toDate}}
+  auth: bearer
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+vars {
+  doctorId: "uuid-goes-here"
+  fromDate: "2025-06-20"
+  toDate: "2025-06-27"
+}
+
+tests {
+  test("should list available slots") {
+    const response = res;
+    expect(response.status).toBe(200);
+    expect(response.body.detail).toBe("Available slots retrieved");
+    expect(Array.isArray(response.body.data)).toBe(true);
+  }
+}

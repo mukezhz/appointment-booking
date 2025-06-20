@@ -1,0 +1,38 @@
+meta {
+  name: ListAppointments
+  type: http
+}
+
+get {
+  url: {{baseUrl}}/api/v1/appointments?page=1&per_page=10
+  query: {
+    doctor_id: {{doctorId}}
+    patient_id: {{patientId}}
+    status: ["scheduled", "cancelled"]
+    from_date: {{fromDate}}
+    to_date: {{toDate}}
+    page: 1
+    per_page: 10
+  }
+  auth: bearer
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+vars {
+  doctorId: "uuid-goes-here"
+  patientId: "uuid-goes-here"
+  fromDate: "2025-06-20"
+  toDate: "2025-06-27"
+}
+
+tests {
+  test("should list appointments") {
+    const response = res;
+    expect(response.status).toBe(200);
+    expect(response.body.detail).toBe("Appointments retrieved successfully");
+    expect(Array.isArray(response.body.data)).toBe(true);
+  }
+}

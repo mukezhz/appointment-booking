@@ -1,29 +1,28 @@
 package framework
 
 const (
-	// Claims -> authentication claims
-	Claims = "Claims"
+	// Authentication and Authorization
+	Claims      = "Claims"
+	UID         = "UID"
+	UIDHeader   = "X-UID"
+	Token       = "Token"
+	CognitoPass = "CognitoPass"
+	Role        = "Role"
 
-	// UID -> authenticated user's id
-	UID       = "UID"
-	UIDHeader = "X-UID"
+	// Context Keys
+	UserIDKey      = "user_id"
+	UserRoleKey    = "user_role"
+	RequestIDKey   = "request_id"
+	LoggerKey      = "logger"
+	CorrelationKey = "correlation_id"
 
-	// File uploaded file from file upload middleware
+	// File upload
 	File = "@uploaded_file"
 
-	// Limit for get all api
+	// Pagination
 	Limit = "Limit"
+	Page  = "Page"
 
-	// Page
-	Page = "Page"
-
-	// Rate Limit
+	// Rate Limiting
 	RateLimit = "RateLimit"
-
-	// Token -> bearer token
-	Token = "Token"
-
-	CognitoPass = "CognitoPass"
-
-	Role = "Role"
 )
