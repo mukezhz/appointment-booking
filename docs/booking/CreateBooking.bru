@@ -1,0 +1,69 @@
+meta {
+  name: Create Booking
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}/api/v1/public/book
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "guest_name": "Jane Smith",
+    "guest_email": "jane.smith@example.com",
+    "date": "2025-06-23",
+    "start_time": "10:00",
+    "end_time": "11:00"
+  }
+}
+
+tests {
+  test("should create booking successfully", function() {
+    const response = res;
+    expect(response.status).to.equal(201);
+    expect(response.body).to.have.property("uuid");
+    expect(response.body).to.have.property("guest_name");
+    expect(response.body).to.have.property("guest_email");
+    expect(response.body).to.have.property("date");
+    expect(response.body).to.have.property("start_time");
+    expect(response.body).to.have.property("end_time");
+    expect(response.body).to.have.property("status");
+  })
+}
+
+docs {
+  title: "Create Booking"
+  description: """
+    Creates a new booking appointment. This is a public endpoint that doesn't require authentication.
+    
+    ## Required Fields
+    - guest_name: Name of the person booking the appointment
+    - guest_email: Email address of the person booking
+    - date: Date of the appointment in YYYY-MM-DD format
+    - start_time: Start time in HH:MM format (24-hour)
+    - end_time: End time in HH:MM format (24-hour)
+    
+    ## Response Format
+    ```json
+    {
+      "uuid": "string",
+      "guest_name": "string",
+      "guest_email": "string",
+      "date": "2025-06-23T00:00:00Z",
+      "start_time": "string",
+      "end_time": "string",
+      "status": "string"
+    }
+    ```
+    
+    ## Notes
+    - This is a public endpoint - no authentication required
+    - The booking must align with doctor's availability
+    - Times must be in 24-hour format (HH:MM)
+    - Date must be a future date
+    - End time must be after start time
+  """
+}

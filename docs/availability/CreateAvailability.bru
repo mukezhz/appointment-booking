@@ -1,0 +1,65 @@
+meta {
+  name: Create Availability
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}/api/v1/availability
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-UID: 1
+}
+
+body:json {
+  {
+    "weekday": "Monday",
+    "start_time": "09:00",
+    "end_time": "17:00"
+  }
+}
+
+tests {
+  test("should create availability successfully", function() {
+    const response = res;
+    expect(response.status).to.equal(201);
+    expect(response.body).to.have.property("uuid");
+    expect(response.body).to.have.property("weekday");
+    expect(response.body).to.have.property("start_time");
+    expect(response.body).to.have.property("end_time");
+  })
+}
+
+docs {
+  title: "Create Availability"
+  description: """
+    Creates a new availability slot for a doctor.
+    
+    ## Authentication
+    Requires a valid JWT token in the Authorization header:
+    `Authorization: Bearer <token>`
+    
+    ## Required Fields
+    - weekday: Must be one of "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+    - start_time: Time in HH:MM format (24-hour)
+    - end_time: Time in HH:MM format (24-hour)
+    
+    ## Response Format
+    ```json
+    {
+      "uuid": "string",
+      "weekday": "string",
+      "start_time": "string",
+      "end_time": "string"
+    }
+    ```
+    
+    ## Notes
+    - Only authenticated doctors can create availability slots
+    - Times must be in 24-hour format (HH:MM)
+    - End time must be after start time
+  """
+}

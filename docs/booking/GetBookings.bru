@@ -1,0 +1,65 @@
+meta {
+  name: Get Bookings
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseURL}}/api/v1/bookings
+  body: none
+  auth: inherit
+}
+
+headers {
+  ~X-UID: d6eb8bbc-787e-4cfc-9043-976740e25d9a
+}
+
+tests {
+  test("should get bookings list successfully", function() {
+    const response = res;
+    expect(response.status).to.equal(200);
+    expect(response.body).to.be.an("array");
+    if (response.body.length > 0) {
+      expect(response.body[0]).to.have.property("uuid");
+      expect(response.body[0]).to.have.property("guest_name");
+      expect(response.body[0]).to.have.property("guest_email");
+      expect(response.body[0]).to.have.property("date");
+      expect(response.body[0]).to.have.property("start_time");
+      expect(response.body[0]).to.have.property("end_time");
+      expect(response.body[0]).to.have.property("status");
+    }
+  })
+}
+
+docs {
+  title: "Get Bookings"
+  description: """
+    Retrieves all bookings for the authenticated doctor.
+    
+    ## Authentication
+    Requires a valid JWT token in the Authorization header:
+    `Authorization: Bearer <token>`
+    
+    ## Response Format
+    ```json
+    [
+      {
+        "uuid": "string",
+        "guest_name": "string",
+        "guest_email": "string",
+        "date": "2025-06-23T00:00:00Z",
+        "start_time": "string",
+        "end_time": "string",
+        "status": "string"
+      }
+    ]
+    ```
+    
+    ## Notes
+    - Authentication required
+    - Returns all bookings for the authenticated doctor
+    - Times are in 24-hour format (HH:MM)
+    - Date is in ISO 8601 format
+    - Status indicates the current state of the booking
+  """
+}

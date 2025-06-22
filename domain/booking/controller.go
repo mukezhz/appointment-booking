@@ -1,8 +1,10 @@
 package booking
 
 import (
+	"clean-architecture/domain/common"
 	"clean-architecture/pkg/framework"
 	"clean-architecture/pkg/responses"
+	"clean-architecture/pkg/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -44,7 +46,12 @@ func (c *Controller) CreateBooking(ctx *gin.Context) {
 
 // GetBookings handles fetching user's bookings (protected route)
 func (c *Controller) GetBookings(ctx *gin.Context) {
-	userID := ctx.MustGet(framework.UserIDKey).(uint)
+	userID, ok := utils.AnyToUint(ctx.MustGet(framework.UID))
+	if !ok {
+		c.logger.Error("Failed to get user ID from context")
+		responses.HandleError(ctx, c.logger, common.ErrInvalidUserID)
+		return
+	}
 
 	bookings, err := c.service.GetUserBookings(ctx.Request.Context(), userID)
 	if err != nil {
