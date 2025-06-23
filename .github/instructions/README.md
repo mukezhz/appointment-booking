@@ -11,12 +11,6 @@ Welcome to our Go Clean Architecture project documentation. This documentation i
 - [Dependency Injection](architecture/02-dependency-injection.md)
 - [Feature Development Guide](architecture/03-feature-development.md)
 
-#### Architecture Layers
-- [Models Layer](architecture/layers/01-models.md)
-- [Repository Layer](architecture/layers/02-repository.md)
-- [Service Layer](architecture/layers/03-service.md)
-- [Controller Layer](architecture/layers/04-controller.md)
-
 ### 2. API Development
 - [API Overview](api/01-api-overview.md)
 - [Request/Response Standards](api/02-request-response.md)
