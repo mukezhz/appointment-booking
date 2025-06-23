@@ -14,14 +14,13 @@ Clean Architecture with [Gin Web Framework](https://github.com/gin-gonic/gin)
 
 ## Documentation
 
-Comprehensive documentation for this project is available in the `.github/instructions` directory:
+All project documentation is available in the `.github/instructions/README.md` file. This includes:
+- Project structure and architecture
+- API development guidelines
+- Error handling patterns
+- Testing strategies
 
-- [Architecture Guide](.github/instructions/architecture/01-project-overview.md) - Project structure, layers, and coding guidelines
-- [API Development Guide](.github/instructions/architecture/03-feature-development.md) - Creating REST APIs with examples
-- [Error Handling Guide](.github/instructions/error-guide.md) - Complete guide for error handling patterns and best practices
-- [Testing Guide](.github/instructions/testing-guide.md) - Writing service and API tests
-
-See the [Instructions README](.github/instructions/README.md) for more details about the documentation.
+See the [Instructions README](.github/instructions/README.md) for complete documentation.
 
 ## Linter setup
 
