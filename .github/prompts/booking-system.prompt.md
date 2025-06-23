@@ -1,6 +1,5 @@
 ---
 mode: 'agent'
-tools: []
 description: 'Generate a project of your **Appointment Booking API** requirements for a **doctor-patient platform**'
 ---
 

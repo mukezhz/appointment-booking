@@ -33,7 +33,7 @@ This project implements a modern web application using Go and Clean Architecture
 ## Key Technologies
 
 1. **Core Framework**
-   - Go (1.21+)
+   - Go (1.23+)
    - Gin Web Framework
    - GORM for database access
    - uber-go/fx for dependency injection
