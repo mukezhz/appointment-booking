@@ -1,8 +1,9 @@
 package console
 
 import (
-	"clean-architecture/pkg/framework"
 	"context"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 
 	"github.com/spf13/cobra"
 	"go.uber.org/fx"

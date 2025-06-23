@@ -41,7 +41,7 @@ import (
 
     . "github.com/onsi/ginkgo/v2"
     . "github.com/onsi/gomega"
-    "clean-architecture/pkg/utils"
+    "github.com/mukezhz/appointment-booking/pkg/utils"
 )
 
 func TestFeature(t *testing.T) {
@@ -191,8 +191,8 @@ import (
     . "github.com/onsi/gomega"
     "github.com/stretchr/testify/mock"
     
-    "clean-architecture/domain/appointment"
-    "clean-architecture/pkg/testutil"
+    "github.com/mukezhz/appointment-booking/domain/appointment"
+    "github.com/mukezhz/appointment-booking/pkg/testutil"
 )
 
 // Test suite setup

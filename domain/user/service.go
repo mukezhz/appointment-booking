@@ -5,11 +5,11 @@ import (
 
 	"github.com/google/uuid"
 
-	"clean-architecture/domain/constants"
-	"clean-architecture/domain/models"
-	"clean-architecture/pkg/errorz"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/types"
+	"github.com/mukezhz/appointment-booking/domain/constants"
+	"github.com/mukezhz/appointment-booking/domain/models"
+	"github.com/mukezhz/appointment-booking/pkg/errorz"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/types"
 )
 
 type Service struct {

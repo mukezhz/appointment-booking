@@ -1,7 +1,7 @@
 package responses
 
 import (
-	"clean-architecture/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 
 	"github.com/gin-gonic/gin"
 )

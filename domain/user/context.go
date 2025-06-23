@@ -1,8 +1,8 @@
 package user
 
 import (
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/types"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/types"
 
 	"github.com/gin-gonic/gin"
 )

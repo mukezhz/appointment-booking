@@ -3,7 +3,7 @@ package common
 import (
 	"errors"
 
-	"clean-architecture/pkg/errorz"
+	"github.com/mukezhz/appointment-booking/pkg/errorz"
 
 	"github.com/go-sql-driver/mysql"
 	"github.com/jackc/pgx/v5/pgconn"

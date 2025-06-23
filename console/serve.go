@@ -1,10 +1,11 @@
 package console
 
 import (
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/infrastructure"
-	"clean-architecture/pkg/middlewares"
 	"time"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
+	"github.com/mukezhz/appointment-booking/pkg/middlewares"
 
 	"github.com/getsentry/sentry-go"
 	"github.com/spf13/cobra"

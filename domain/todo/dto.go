@@ -1,8 +1,9 @@
 package todo
 
 import (
-	"clean-architecture/pkg/responses"
 	"time"
+
+	"github.com/mukezhz/appointment-booking/pkg/responses"
 )
 
 // CreateTodoRequest DTO for creating a todo

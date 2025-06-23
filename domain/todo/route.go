@@ -1,8 +1,8 @@
 package todo
 
 import (
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/infrastructure"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
 )
 
 // Route struct

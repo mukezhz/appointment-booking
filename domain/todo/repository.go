@@ -1,10 +1,10 @@
 package todo
 
 import (
-	"clean-architecture/domain/models"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/infrastructure"
-	"clean-architecture/pkg/types"
+	"github.com/mukezhz/appointment-booking/domain/models"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
+	"github.com/mukezhz/appointment-booking/pkg/types"
 )
 
 // Repository database structure

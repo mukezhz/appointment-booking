@@ -1,9 +1,10 @@
 package middlewares
 
 import (
-	"clean-architecture/pkg/framework"
 	"net/http"
 	"strings"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 
 	"github.com/gin-gonic/gin"
 )

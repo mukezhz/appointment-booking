@@ -1,13 +1,14 @@
 package testutil
 
 import (
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/infrastructure"
 	"context"
 	"fmt"
 	"log"
 	"net"
 	"time"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

@@ -1,11 +1,12 @@
 package utils
 
 import (
-	"clean-architecture/pkg/framework"
 	"errors"
 	"fmt"
 	"log"
 	"strings"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 
 	"github.com/aws/smithy-go"
 )

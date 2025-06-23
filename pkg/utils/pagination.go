@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"clean-architecture/pkg/framework"
 	"strconv"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 
 	"github.com/gin-gonic/gin"
 )

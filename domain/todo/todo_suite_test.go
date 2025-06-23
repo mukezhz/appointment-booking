@@ -1,8 +1,9 @@
 package todo_test
 
 import (
-	"clean-architecture/pkg/utils"
 	"testing"
+
+	"github.com/mukezhz/appointment-booking/pkg/utils"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

@@ -1,10 +1,11 @@
 package todo
 
 import (
-	"clean-architecture/domain/models"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/types"
 	"errors"
+
+	"github.com/mukezhz/appointment-booking/domain/models"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/types"
 
 	"gorm.io/gorm"
 )

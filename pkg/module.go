@@ -1,10 +1,10 @@
 package pkg
 
 import (
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/infrastructure"
-	"clean-architecture/pkg/middlewares"
-	"clean-architecture/pkg/services"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
+	"github.com/mukezhz/appointment-booking/pkg/middlewares"
+	"github.com/mukezhz/appointment-booking/pkg/services"
 
 	"go.uber.org/fx"
 )

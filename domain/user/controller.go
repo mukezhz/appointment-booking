@@ -5,9 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"clean-architecture/domain/constants"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/responses"
+	"github.com/mukezhz/appointment-booking/domain/constants"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/responses"
 )
 
 type Controller struct {

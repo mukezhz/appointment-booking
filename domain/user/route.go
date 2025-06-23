@@ -1,9 +1,9 @@
 package user
 
 import (
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/infrastructure"
-	"clean-architecture/pkg/middlewares"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
+	"github.com/mukezhz/appointment-booking/pkg/middlewares"
 )
 
 type Route struct {

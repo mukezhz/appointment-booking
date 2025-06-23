@@ -1,11 +1,12 @@
 package responses
 
 import (
-	"clean-architecture/pkg/errorz"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/utils"
 	"errors"
 	"net/http"
+
+	"github.com/mukezhz/appointment-booking/pkg/errorz"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/utils"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

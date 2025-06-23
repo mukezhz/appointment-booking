@@ -1,7 +1,7 @@
 package main
 
 import (
-	"clean-architecture/bootstrap"
+	"github.com/mukezhz/appointment-booking/bootstrap"
 
 	"github.com/joho/godotenv"
 )

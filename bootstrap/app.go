@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	"clean-architecture/console"
+	"github.com/mukezhz/appointment-booking/console"
 
 	"github.com/spf13/cobra"
 )

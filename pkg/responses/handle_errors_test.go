@@ -1,14 +1,15 @@
 package responses_test
 
 import (
-	"clean-architecture/pkg/errorz"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/responses"
-	"clean-architecture/pkg/utils"
 	"errors"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/mukezhz/appointment-booking/pkg/errorz"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/responses"
+	"github.com/mukezhz/appointment-booking/pkg/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"

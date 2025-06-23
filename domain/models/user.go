@@ -1,8 +1,8 @@
 package models
 
 import (
-	"clean-architecture/domain/constants"
-	"clean-architecture/pkg/types"
+	"github.com/mukezhz/appointment-booking/domain/constants"
+	"github.com/mukezhz/appointment-booking/pkg/types"
 
 	_ "ariga.io/atlas-provider-gorm/gormschema"
 

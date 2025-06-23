@@ -1,7 +1,7 @@
 package user
 
 import (
-	"clean-architecture/pkg/middlewares"
+	"github.com/mukezhz/appointment-booking/pkg/middlewares"
 
 	"go.uber.org/fx"
 )

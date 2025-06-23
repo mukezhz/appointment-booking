@@ -1,9 +1,9 @@
 package bootstrap
 
 import (
-	"clean-architecture/domain"
-	"clean-architecture/pkg"
-	"clean-architecture/seeds"
+	"github.com/mukezhz/appointment-booking/domain"
+	"github.com/mukezhz/appointment-booking/pkg"
+	"github.com/mukezhz/appointment-booking/seeds"
 
 	"go.uber.org/fx"
 )

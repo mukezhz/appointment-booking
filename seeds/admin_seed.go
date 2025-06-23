@@ -1,9 +1,9 @@
 package seeds
 
 import (
-	"clean-architecture/domain/todo"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/services"
+	"github.com/mukezhz/appointment-booking/domain/todo"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/services"
 )
 
 type TodoSeed struct {

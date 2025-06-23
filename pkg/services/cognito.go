@@ -1,9 +1,9 @@
 package services
 
 import (
-	"clean-architecture/domain/constants"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/utils"
+	"github.com/mukezhz/appointment-booking/domain/constants"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/utils"
 
 	"context"
 	"strconv"

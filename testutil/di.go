@@ -1,12 +1,13 @@
 package testutil
 
 import (
-	"clean-architecture/domain"
-	"clean-architecture/pkg"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/infrastructure"
 	"context"
 	"log"
+
+	"github.com/mukezhz/appointment-booking/domain"
+	"github.com/mukezhz/appointment-booking/pkg"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
 
 	"github.com/onsi/ginkgo/v2"
 	"go.uber.org/fx"

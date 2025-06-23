@@ -1,10 +1,11 @@
 package services
 
 import (
-	"clean-architecture/pkg/framework"
 	"context"
 	"io"
 	"time"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/s3"

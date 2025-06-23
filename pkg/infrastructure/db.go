@@ -1,11 +1,12 @@
 package infrastructure
 
 import (
-	"clean-architecture/pkg/framework"
 	"context"
 	"fmt"
 	"os"
 	"time"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 
 	"ariga.io/atlas-go-sdk/atlasexec"
 	"github.com/DATA-DOG/go-sqlmock"

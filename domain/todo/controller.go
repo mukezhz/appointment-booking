@@ -5,13 +5,13 @@ import (
 	"strconv"
 	"time"
 
-	"clean-architecture/domain/models"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/responses"
-	"clean-architecture/pkg/types"
+	"github.com/mukezhz/appointment-booking/domain/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/responses"
+	"github.com/mukezhz/appointment-booking/pkg/types"
 )
 
 // Controller data type

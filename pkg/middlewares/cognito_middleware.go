@@ -1,11 +1,12 @@
 package middlewares
 
 import (
-	"clean-architecture/pkg/errorz"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/responses"
-	"clean-architecture/pkg/services"
 	"fmt"
+
+	"github.com/mukezhz/appointment-booking/pkg/errorz"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/responses"
+	"github.com/mukezhz/appointment-booking/pkg/services"
 
 	"strings"
 

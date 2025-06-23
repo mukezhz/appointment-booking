@@ -1,8 +1,9 @@
 package infrastructure
 
 import (
-	"clean-architecture/pkg/framework"
 	"net/http"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 
 	sentrygin "github.com/getsentry/sentry-go/gin"
 	"github.com/gin-contrib/cors"

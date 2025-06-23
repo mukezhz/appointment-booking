@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"clean-architecture/pkg/types"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -9,6 +8,8 @@ import (
 	"reflect"
 	"strconv"
 	"time"
+
+	"github.com/mukezhz/appointment-booking/pkg/types"
 )
 
 // CustomBind custom bind the data

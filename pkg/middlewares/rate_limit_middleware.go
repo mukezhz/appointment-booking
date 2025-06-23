@@ -1,10 +1,11 @@
 package middlewares
 
 import (
-	"clean-architecture/pkg/framework"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ulule/limiter/v3"

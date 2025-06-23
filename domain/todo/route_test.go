@@ -1,14 +1,15 @@
 package todo_test
 
 import (
-	"clean-architecture/domain/todo"
-	"clean-architecture/pkg/infrastructure"
-	"clean-architecture/pkg/responses"
-	"clean-architecture/testutil"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/mukezhz/appointment-booking/domain/todo"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
+	"github.com/mukezhz/appointment-booking/pkg/responses"
+	"github.com/mukezhz/appointment-booking/testutil"
 
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"

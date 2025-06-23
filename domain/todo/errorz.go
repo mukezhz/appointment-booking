@@ -1,7 +1,7 @@
 package todo
 
 import (
-	"clean-architecture/pkg/errorz"
+	"github.com/mukezhz/appointment-booking/pkg/errorz"
 )
 
 var (

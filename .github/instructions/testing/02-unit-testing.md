@@ -173,7 +173,7 @@ func TestAvailability_GenerateSlots(t *testing.T) {
 ### 1. Interface Mocking with GoMock
 
 ```go
-//go:generate mockgen -destination=mocks/mock_repository.go -package=mocks clean-architecture/domain/appointment Repository
+//go:generate mockgen -destination=mocks/mock_repository.go -package=mocks github.com/mukezhz/appointment-booking/domain/appointment Repository
 type Repository interface {
     Create(context.Context, *models.Appointment) error
     GetByID(context.Context, types.BinaryUUID) (*models.Appointment, error)

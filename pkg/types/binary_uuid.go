@@ -1,10 +1,11 @@
 package types
 
 import (
-	"clean-architecture/pkg/errorz"
 	"database/sql/driver"
 	"errors"
 	"fmt"
+
+	"github.com/mukezhz/appointment-booking/pkg/errorz"
 
 	"github.com/google/uuid"
 )

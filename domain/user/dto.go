@@ -1,9 +1,9 @@
 package user
 
 import (
-	"clean-architecture/domain/constants"
-	"clean-architecture/domain/models"
-	"clean-architecture/pkg/types"
+	"github.com/mukezhz/appointment-booking/domain/constants"
+	"github.com/mukezhz/appointment-booking/domain/models"
+	"github.com/mukezhz/appointment-booking/pkg/types"
 )
 
 // RegisterUserDTO represents the data required for user registration

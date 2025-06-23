@@ -1,14 +1,15 @@
 package todo_test
 
 import (
-	"clean-architecture/domain/models"
-	"clean-architecture/domain/todo"
-	"clean-architecture/pkg/infrastructure"
-	"clean-architecture/pkg/types"
-	"clean-architecture/testutil"
 	"errors"
 	"log"
 	"time"
+
+	"github.com/mukezhz/appointment-booking/domain/models"
+	"github.com/mukezhz/appointment-booking/domain/todo"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
+	"github.com/mukezhz/appointment-booking/pkg/types"
+	"github.com/mukezhz/appointment-booking/testutil"
 
 	"github.com/google/uuid"
 	. "github.com/onsi/ginkgo/v2"

@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"clean-architecture/pkg/types"
+	"github.com/mukezhz/appointment-booking/pkg/types"
 )
 
 // Todo represents the todo model in the database

@@ -2,11 +2,6 @@ package middlewares
 
 import (
 	"bytes"
-	"clean-architecture/pkg/errorz"
-	"clean-architecture/pkg/framework"
-	"clean-architecture/pkg/responses"
-	"clean-architecture/pkg/services"
-	"clean-architecture/pkg/types"
 	"context"
 	"errors"
 	"fmt"
@@ -17,6 +12,12 @@ import (
 	"mime/multipart"
 	"path/filepath"
 	"strings"
+
+	"github.com/mukezhz/appointment-booking/pkg/errorz"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
+	"github.com/mukezhz/appointment-booking/pkg/responses"
+	"github.com/mukezhz/appointment-booking/pkg/services"
+	"github.com/mukezhz/appointment-booking/pkg/types"
 
 	"github.com/chai2010/webp"
 	"github.com/gin-gonic/gin"

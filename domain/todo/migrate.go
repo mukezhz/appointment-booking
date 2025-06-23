@@ -1,8 +1,8 @@
 package todo
 
 import (
-	"clean-architecture/domain/models"
-	"clean-architecture/pkg/infrastructure"
+	"github.com/mukezhz/appointment-booking/domain/models"
+	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
 )
 
 // Migrate automigrates the todo model
