@@ -5,9 +5,13 @@ meta {
 }
 
 post {
-  url: {{baseURL}}/api/public/appointments/book
+  url: {{baseURL}}/api/public/appointments/book?provider_id=123
   body: json
   auth: inherit
+}
+
+query {
+  provider_id: number // Required: ID of the service provider
 }
 
 headers {
@@ -42,16 +46,16 @@ docs {
   {
     "item": {
       "id": number,
-      "userId": number,
-      "date": string,
-      "startTime": string,
-      "endTime": string,
-      "timeZone": string,
-      "status": string,
-      "clientName": string,
-      "clientEmail": string,
-      "createdAt": string,
-      "updatedAt": string
+      "provider_id": number,    // ID of the service provider
+      "guest_id": number,       // ID of the guest/client
+      "guest_name": string,     // Name of the guest
+      "guest_email": string,    // Email of the guest
+      "date": string,          // YYYY-MM-DD format
+      "start_time": string,    // RFC3339 format
+      "end_time": string,      // RFC3339 format
+      "status": string,        // pending, confirmed, cancelled, completed
+      "created_at": string,    // RFC3339 format
+      "updated_at": string     // RFC3339 format
     },
     "message": "Booking created successfully"
   }

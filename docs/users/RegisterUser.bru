@@ -14,10 +14,8 @@ body:json {
   {
     "email": "doctor@example.com",
     "role": "doctor",
-    "first_name": "John",
-    "last_name": "Doe",
-    "first_name_ja": "ジョン",
-    "last_name_ja": "ドゥ"
+    "full_name": "John Doe",
+    "full_name_ja": "ジョン ドゥ"
   }
 }
 
@@ -30,8 +28,8 @@ tests {
       expect(response.body.item).to.have.property("uuid");
       expect(response.body.item).to.have.property("email");
       expect(response.body.item).to.have.property("role");
-      expect(response.body.item).to.have.property("first_name");
-      expect(response.body.item).to.have.property("last_name");
+      expect(response.body.item).to.have.property("full_name");
+      expect(response.body.item).to.have.property("full_name_ja");
       expect(response.body.message).to.equal("User registered successfully");
   })
 }
@@ -49,12 +47,10 @@ docs {
     ## Required Fields
     - email
     - role
-    - first_name
-    - last_name
+    - full_name
 
     ## Optional Fields
-    - first_name_ja (Japanese first name)
-    - last_name_ja (Japanese last name)
+    - full_name_ja (Japanese name)
 
     ## Response Format
     ```json
@@ -63,10 +59,8 @@ docs {
         "uuid": "string",
         "email": "string",
         "role": "string",
-        "first_name": "string",
-        "last_name": "string",
-        "first_name_ja": "string",
-        "last_name_ja": "string",
+        "full_name": "string",
+        "full_name_ja": "string",
         "is_active": boolean
       },
       "message": "User registered successfully"
