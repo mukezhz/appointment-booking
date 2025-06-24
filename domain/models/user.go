@@ -16,10 +16,8 @@ type User struct {
 	UUID       types.BinaryUUID `json:"uuid" gorm:"index;notnull;unique"`
 	CognitoUID *string          `json:"-" gorm:"index;size:50;unique"`
 
-	FirstName   string `json:"first_name" gorm:"size:255"`
-	LastName    string `json:"last_name" gorm:"size:255"`
-	FirstNameJa string `json:"first_name_ja" gorm:"size:255"`
-	LastNameJa  string `json:"last_name_ja" gorm:"size:255"`
+	FullName   string `json:"full_name" gorm:"size:255"`
+	FullNameJa string `json:"full_name_ja,omitempty" gorm:"size:255"`
 
 	Email string             `json:"email" gorm:"notnull;index,unique;size:255"`
 	Role  constants.UserRole `json:"role" gorm:"size:25" copier:"-"`

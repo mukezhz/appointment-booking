@@ -35,10 +35,8 @@ func (c *Controller) Register(ctx *gin.Context) {
 	user, err := c.service.Register(
 		ctx.Request.Context(),
 		dto.Email,
-		dto.FirstName,
-		dto.LastName,
-		dto.FirstNameJa,
-		dto.LastNameJa,
+		dto.FullName,
+		dto.FullNameJa,
 		constants.UserRole(dto.Role),
 	)
 	if err != nil {
@@ -115,17 +113,11 @@ func (c *Controller) UpdateProfile(ctx *gin.Context) {
 	}
 
 	// Update user fields
-	if dto.FirstName != "" {
-		user.FirstName = dto.FirstName
+	if dto.FullName != "" {
+		user.FullName = dto.FullName
 	}
-	if dto.LastName != "" {
-		user.LastName = dto.LastName
-	}
-	if dto.FirstNameJa != "" {
-		user.FirstNameJa = dto.FirstNameJa
-	}
-	if dto.LastNameJa != "" {
-		user.LastNameJa = dto.LastNameJa
+	if dto.FullNameJa != "" {
+		user.FullNameJa = dto.FullNameJa
 	}
 
 	if err := c.service.UpdateUser(ctx.Request.Context(), user); err != nil {

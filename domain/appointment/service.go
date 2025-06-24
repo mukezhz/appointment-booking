@@ -1,6 +1,7 @@
 package appointment
 
 import (
+	"github.com/mukezhz/appointment-booking/domain/constants"
 	"github.com/mukezhz/appointment-booking/domain/models"
 	"github.com/mukezhz/appointment-booking/pkg/framework"
 )
@@ -43,6 +44,35 @@ func (s *Service) DeleteAvailability(id uint) error {
 // CreateBooking creates a new booking
 func (s *Service) CreateBooking(booking *models.Booking) error {
 	s.logger.Info("[AppointmentService...CreateBooking]")
+
+	// Try to find existing user by email
+	existingUser, err := s.repo.GetUserByEmail(booking.GuestEmail)
+	if err != nil {
+		// User doesn't exist, create a new one
+		s.logger.Info("[AppointmentService...CreateBooking] Creating new user for:", booking.GuestEmail)
+
+		existingUser, err = s.repo.CreateUser(
+			&models.User{
+				Email:    booking.GuestEmail,
+				FullName: booking.GuestName,
+				Role:     constants.UserRoleGuest,
+			},
+		)
+		if err != nil {
+			s.logger.Error("[AppointmentService...CreateBooking] Failed to create user:", err)
+			return err
+		}
+	}
+
+	// Set the guest user ID from the found or newly created user
+	booking.UserID = existingUser.ID
+
+	// Validate the booking
+	if err := booking.Validate(); err != nil {
+		return err
+	}
+
+	// Create the booking
 	return s.repo.CreateBooking(booking)
 }
 

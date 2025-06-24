@@ -31,7 +31,7 @@ func NewService(
 
 func (s *Service) Register(
 	ctx context.Context,
-	email, firstName, lastName, firstNameJa, lastNameJa string,
+	email, fullName, fullNameJa string,
 	role constants.UserRole,
 ) (*models.User, error) {
 	// Check if user already exists
@@ -45,14 +45,12 @@ func (s *Service) Register(
 	}
 
 	user := &models.User{
-		UUID:        types.BinaryUUID(id),
-		Email:       email,
-		Role:        role,
-		FirstName:   firstName,
-		LastName:    lastName,
-		FirstNameJa: firstNameJa,
-		LastNameJa:  lastNameJa,
-		IsActive:    true,
+		UUID:       types.BinaryUUID(id),
+		Email:      email,
+		Role:       role,
+		FullName:   fullName,
+		FullNameJa: fullNameJa,
+		IsActive:   true,
 	}
 
 	if err := s.repo.Create(ctx, user); err != nil {

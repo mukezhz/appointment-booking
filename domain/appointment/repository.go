@@ -159,3 +159,22 @@ func IsValidBookingStatus(status models.BookingStatus) bool {
 		return false
 	}
 }
+
+func (r *Repository) GetUserByEmail(email string) (*models.User, error) {
+	var user models.User
+	err := r.db.Where("email = ?", email).First(&user).Error
+	if err != nil {
+		r.logger.Error("[Repository...GetUserByEmail] Error retrieving user by email:", err)
+		return nil, common.HandleDBError(err, ErrAppointmentMap)
+	}
+	return &user, nil
+}
+
+func (r *Repository) CreateUser(user *models.User) (*models.User, error) {
+	err := r.db.Create(user).Error
+	if err != nil {
+		r.logger.Error("[Repository...CreateUser] Error creating user:", err)
+		return nil, common.HandleDBError(err, ErrAppointmentMap)
+	}
+	return user, nil
+}
