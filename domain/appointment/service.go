@@ -2,17 +2,20 @@ package appointment
 
 import (
 	"github.com/mukezhz/appointment-booking/domain/models"
-	"go.uber.org/zap"
+	"github.com/mukezhz/appointment-booking/pkg/framework"
 )
 
 // Service handles business logic for appointments
 type Service struct {
-	logger *zap.Logger
+	logger framework.Logger
 	repo   *Repository
 }
 
 // NewService creates a new appointment service
-func NewService(logger *zap.Logger, repo *Repository) *Service {
+func NewService(
+	logger framework.Logger,
+	repo *Repository,
+) *Service {
 	return &Service{
 		logger: logger,
 		repo:   repo,

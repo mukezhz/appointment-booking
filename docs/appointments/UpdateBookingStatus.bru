@@ -1,0 +1,64 @@
+meta {
+  name: UpdateBookingStatus
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{baseURL}}/api/appointments/bookings/{{bookingId}}/status
+  body: json
+  auth: bearer
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "status": "confirmed"
+  }
+}
+
+docs {
+  # Update Booking Status
+  Updates the status of a booking. Only accessible by the service provider.
+
+  ## Path Parameters
+  - bookingId: ID of the booking to update
+
+  ## Request Body
+  ```json
+  {
+    "status": string  // "confirmed", "cancelled", "completed"
+  }
+  ```
+
+  ## Response
+  ```json
+  {
+    "item": {
+      "id": number,
+      "guest_name": string,
+      "guest_email": string,
+      "date": string,
+      "start_time": string,
+      "end_time": string,
+      "status": string,
+      "created_at": string,
+      "updated_at": string
+    },
+    "message": "Booking status updated successfully"
+  }
+  ```
+
+  ## Authentication
+  Requires valid JWT token
+
+  ## Errors
+  - 400: Invalid status
+  - 401: Unauthorized
+  - 404: Booking not found
+  - 500: Server error
+}

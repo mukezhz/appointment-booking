@@ -3,13 +3,15 @@ package appointment
 import (
 	"github.com/mukezhz/appointment-booking/pkg/framework"
 	"github.com/mukezhz/appointment-booking/pkg/infrastructure"
+	"github.com/mukezhz/appointment-booking/pkg/middlewares"
 )
 
 // Route struct
 type Route struct {
-	logger     framework.Logger
-	handler    infrastructure.Router
-	controller *Controller
+	logger         framework.Logger
+	handler        infrastructure.Router
+	controller     *Controller
+	authMiddleware middlewares.AuthMiddleware
 }
 
 // NewRoute creates a new route
@@ -17,11 +19,13 @@ func NewRoute(
 	logger framework.Logger,
 	handler infrastructure.Router,
 	controller *Controller,
+	authMiddleware middlewares.AuthMiddleware,
 ) *Route {
 	return &Route{
-		handler:    handler,
-		logger:     logger,
-		controller: controller,
+		handler:        handler,
+		logger:         logger,
+		controller:     controller,
+		authMiddleware: authMiddleware,
 	}
 }
 
@@ -32,7 +36,7 @@ func RegisterRoutes(r *Route) {
 	api := r.handler.Group("/api")
 
 	// Protected routes (require authentication)
-	appointments := api.Group("/appointments")
+	appointments := api.Group("/appointments", r.authMiddleware.HandleAuthWithRole())
 	{
 		// Availability routes
 		appointments.POST("/availability", r.controller.CreateAvailability)

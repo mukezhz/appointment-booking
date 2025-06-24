@@ -1,0 +1,70 @@
+meta {
+  name: CreateBooking
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseURL}}/api/public/appointments/book
+  body: json
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "guest_name": "John Doe",
+    "guest_email": "john@example.com",
+    "date": "2024-06-24",
+    "time": "10:00"
+  }
+}
+
+docs {
+  # Create Booking
+  Creates a new booking for a specific time slot. This is a public endpoint that doesn't require authentication.
+
+  ## Request Body
+  ```json
+  {
+    "guest_name": string,  // Name of the guest
+    "guest_email": string, // Email of the guest
+    "date": string,       // YYYY-MM-DD format
+    "time": string        // HH:mm format (appointment start time)
+  }
+  ```
+
+  ## Response
+  ```json
+  {
+    "item": {
+      "id": number,
+      "userId": number,
+      "date": string,
+      "startTime": string,
+      "endTime": string,
+      "timeZone": string,
+      "status": string,
+      "clientName": string,
+      "clientEmail": string,
+      "createdAt": string,
+      "updatedAt": string
+    },
+    "message": "Booking created successfully"
+  }
+  ```
+
+  ## Notes
+  - Validates availability before creating booking
+  - Handles timezone conversions
+  - Prevents double bookings
+  - Sends confirmation email (if configured)
+
+  ## Errors
+  - 400: Invalid input data
+  - 404: Provider not found
+  - 409: Time slot not available
+  - 500: Server error
+}

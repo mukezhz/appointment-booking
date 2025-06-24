@@ -27,6 +27,10 @@ func NewBadRequestError(message string) error {
 	return ErrBadRequest.JoinError(message)
 }
 
+func NewConflictError(message string) error {
+	return ErrConflict.JoinError(message)
+}
+
 func NewUnauthorizedError(message string) error {
 	return ErrUnauthorized.JoinError(message)
 }

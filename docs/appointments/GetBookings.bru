@@ -1,0 +1,64 @@
+meta {
+  name: GetBookings
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseURL}}/api/appointments/bookings
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 1
+  limit: 10
+  status: active
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+docs {
+  # Get Bookings
+  Retrieves bookings for the authenticated user with pagination.
+  
+  ## Query Parameters
+  - page: Page number (default: 1)
+  - limit: Items per page (default: 10, max: 100)
+  - status: Filter by status (optional)
+  
+  ## Response
+  ```json
+  {
+    "items": [
+      {
+        "id": number,
+        "guest_name": string,
+        "guest_email": string,
+        "date": string,
+        "start_time": string,
+        "end_time": string,
+        "status": string,
+        "created_at": string,
+        "updated_at": string
+      }
+    ],
+    "meta": {
+      "page": number,
+      "limit": number,
+      "total": number,
+      "lastPage": number
+    },
+    "message": "Bookings retrieved successfully"
+  }
+  ```
+  
+  ## Authentication
+  Requires valid JWT token
+  
+  ## Errors
+  - 401: Unauthorized
+  - 500: Server error
+}

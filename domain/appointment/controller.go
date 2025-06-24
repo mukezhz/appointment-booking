@@ -9,8 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/mukezhz/appointment-booking/domain/models"
+	"github.com/mukezhz/appointment-booking/pkg/errorz"
 	"github.com/mukezhz/appointment-booking/pkg/framework"
 	"github.com/mukezhz/appointment-booking/pkg/responses"
+	"github.com/mukezhz/appointment-booking/pkg/utils"
 )
 
 type PaginationMeta struct {
@@ -43,26 +45,37 @@ func NewController(
 
 // CreateAvailability creates a new availability slot
 func (c *Controller) CreateAvailability(ctx *gin.Context) {
+	ctxUserID, exists := ctx.Get(framework.UID)
+	if !exists || ctxUserID == nil {
+		responses.HandleError(ctx, c.logger, errorz.ErrUserIDNotFound)
+		return
+	}
+	uid := utils.AnyToUint(ctxUserID)
+	if uid == 0 {
+		responses.HandleError(ctx, c.logger, errorz.ErrUserIDNotFound)
+		return
+	}
+
 	var req CreateAvailabilityRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		responses.HandleValidationError(ctx, c.logger, err)
 		return
 	}
 
-	startTime, err := time.Parse("15:04", req.StartTime)
+	startTime, err := time.Parse(time.DateTime, req.StartTime)
 	if err != nil {
 		responses.HandleValidationError(ctx, c.logger, err)
 		return
 	}
 
-	endTime, err := time.Parse("15:04", req.EndTime)
+	endTime, err := time.Parse(time.DateTime, req.EndTime)
 	if err != nil {
 		responses.HandleValidationError(ctx, c.logger, err)
 		return
 	}
 
 	availability := &models.Availability{
-		UserID:    ctx.GetUint("user_id"),
+		UserID:    uid,
 		Weekday:   req.Weekday,
 		StartTime: startTime,
 		EndTime:   endTime,
@@ -97,7 +110,16 @@ func (c *Controller) CreateAvailability(ctx *gin.Context) {
 
 // GetAvailabilities gets all availability slots for a user
 func (c *Controller) GetAvailabilities(ctx *gin.Context) {
-	userID := ctx.GetUint("user_id")
+	ctxUserID, exists := ctx.Get(framework.UID)
+	if !exists || ctxUserID == nil {
+		responses.HandleError(ctx, c.logger, errorz.ErrUserIDNotFound)
+		return
+	}
+	userID := utils.AnyToUint(ctxUserID)
+	if userID == 0 {
+		responses.HandleError(ctx, c.logger, errorz.ErrUserIDNotFound)
+		return
+	}
 	availabilities, err := c.service.GetAvailabilityByUserID(userID)
 	if err != nil {
 		responses.HandleError(ctx, c.logger, errors.New("Failed to fetch availabilities"))
@@ -134,13 +156,13 @@ func (c *Controller) CreateBooking(ctx *gin.Context) {
 		return
 	}
 
-	date, err := time.Parse("2006-01-02", req.Date)
+	date, err := time.Parse(time.DateOnly, req.Date)
 	if err != nil {
 		responses.HandleValidationError(ctx, c.logger, err)
 		return
 	}
 
-	startTime, err := time.Parse("2006-01-02 15:04", req.Date+" "+req.Time)
+	startTime, err := time.Parse(time.DateTime, req.Date+" "+req.Time)
 	if err != nil {
 		responses.HandleValidationError(ctx, c.logger, err)
 		return
@@ -150,7 +172,7 @@ func (c *Controller) CreateBooking(ctx *gin.Context) {
 	endTime := startTime.Add(time.Hour)
 
 	booking := &models.Booking{
-		UserID:     ctx.GetUint("user_id"),
+		UserID:     ctx.GetUint(framework.UID),
 		GuestName:  req.GuestName,
 		GuestEmail: req.GuestEmail,
 		Date:       date,

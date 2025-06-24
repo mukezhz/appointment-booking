@@ -9,9 +9,6 @@ const (
 	CognitoPass = "CognitoPass"
 	Role        = "Role"
 
-	// Context Keys
-	UserIDKey      = "user_id"
-	UserRoleKey    = "user_role"
 	RequestIDKey   = "request_id"
 	LoggerKey      = "logger"
 	CorrelationKey = "correlation_id"

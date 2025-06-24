@@ -1,0 +1,64 @@
+meta {
+  name: CreateAvailability
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseURL}}/api/appointments/availability
+  body: json
+  auth: inherit
+}
+
+headers {
+  Authorization: Bearer {{token}}
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "weekday": "Monday",
+    "start_time": "09:00",
+    "end_time": "17:00"
+  }
+}
+
+docs {
+  # Create Weekly Availability Slot
+  Creates a new recurring availability slot for service provider.
+  
+  ## Request Body
+  ```json
+  {
+    "weekday": string,    // Day of the week (e.g., "Monday", "Tuesday", etc.)
+    "start_time": string, // HH:mm format
+    "end_time": string    // HH:mm format
+  }
+  ```
+  
+  ## Response
+  ```json
+  {
+    "item": {
+      "id": number,
+      "dayOfWeek": number,
+      "startTime": string,
+      "endTime": string,
+      "timeZone": string,
+      "userId": number,
+      "createdAt": string,
+      "updatedAt": string
+    },
+    "message": "Availability created successfully"
+  }
+  ```
+  
+  ## Authentication
+  Requires valid JWT token
+  
+  ## Errors
+  - 400: Invalid input data
+  - 401: Unauthorized
+  - 409: Conflicting availability
+  - 500: Server error
+}

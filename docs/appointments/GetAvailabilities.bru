@@ -1,0 +1,51 @@
+meta {
+  name: GetAvailabilities
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseURL}}/api/appointments/availability?userId=1
+  body: none
+  auth: inherit
+}
+
+params:query {
+  userId: 1
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+docs {
+  # Get Availabilities
+  Retrieves all availability slots for a user.
+  
+  ## Query Parameters
+  - userId: (optional) ID of the user to fetch availabilities for
+  
+  ## Response
+  ```json
+  {
+    "items": [
+      {
+        "id": number,
+        "weekday": string,
+        "start_time": string,
+        "end_time": string,
+        "created_at": string,
+        "updated_at": string
+      }
+    ],
+    "message": "Availabilities fetched successfully"
+  }
+  ```
+  
+  ## Authentication
+  Requires valid JWT token
+  
+  ## Errors
+  - 401: Unauthorized
+  - 500: Server error
+}

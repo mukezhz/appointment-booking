@@ -349,3 +349,57 @@ func (r *Repository) BatchCreate(ctx context.Context, features []*models.Feature
     })
 }
 ```
+
+## 7. API Documentation with Bruno
+
+The project uses Bruno for API documentation and testing. API documentation is located in the `docs/` directory.
+
+### 7.1. Appointments API Endpoints
+
+#### Availability Management
+- `POST /api/appointments/availability` - Create availability slot
+- `GET /api/appointments/availability` - List availability slots
+
+#### Booking Management
+- `POST /api/public/appointments/book` - Create booking (public)
+- `GET /api/appointments/bookings` - List bookings
+- `PATCH /api/appointments/bookings/:id/status` - Update booking status
+
+See the Bruno files in `docs/appointments/` for detailed request/response examples and testing.
+
+### 7.2. Bruno File Structure
+```
+docs/
+└── appointments/
+    ├── folder.bru              # Module description
+    ├── CreateAvailability.bru  # Create availability slot
+    ├── GetAvailabilities.bru   # List availability slots
+    ├── CreateBooking.bru       # Create booking
+    ├── GetBookings.bru         # List bookings
+    └── UpdateBookingStatus.bru # Update booking status
+```
+
+### 7.3. Example Bruno Test
+```bruno
+meta {
+  name: CreateBooking
+  type: http
+}
+
+post {
+  url: {{baseURL}}/api/public/appointments/book
+  body: json
+}
+
+body:json {
+  {
+    "userId": 1,
+    "date": "2024-06-24",
+    "startTime": "10:00",
+    "endTime": "11:00",
+    "timeZone": "UTC",
+    "clientName": "John Doe",
+    "clientEmail": "john@example.com"
+  }
+}
+```
