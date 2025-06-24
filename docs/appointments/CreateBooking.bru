@@ -7,6 +7,7 @@ meta {
 post {
   url: {{baseURL}}/api/public/appointments/book
   body: json
+  auth: inherit
 }
 
 headers {
@@ -18,14 +19,14 @@ body:json {
     "guest_name": "John Doe",
     "guest_email": "john@example.com",
     "date": "2024-06-24",
-    "time": "10:00"
+    "time": "10:00:00"
   }
 }
 
 docs {
   # Create Booking
   Creates a new booking for a specific time slot. This is a public endpoint that doesn't require authentication.
-
+  
   ## Request Body
   ```json
   {
@@ -35,7 +36,7 @@ docs {
     "time": string        // HH:mm format (appointment start time)
   }
   ```
-
+  
   ## Response
   ```json
   {
@@ -55,13 +56,13 @@ docs {
     "message": "Booking created successfully"
   }
   ```
-
+  
   ## Notes
   - Validates availability before creating booking
   - Handles timezone conversions
   - Prevents double bookings
   - Sends confirmation email (if configured)
-
+  
   ## Errors
   - 400: Invalid input data
   - 404: Provider not found

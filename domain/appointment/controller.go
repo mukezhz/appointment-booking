@@ -155,6 +155,7 @@ func (c *Controller) CreateBooking(ctx *gin.Context) {
 		responses.HandleValidationError(ctx, c.logger, err)
 		return
 	}
+	c.logger.Info("[Controller...CreateBooking]")
 
 	date, err := time.Parse(time.DateOnly, req.Date)
 	if err != nil {
@@ -254,13 +255,17 @@ func (c *Controller) GetBookings(ctx *gin.Context) {
 	page, _ := strconv.Atoi(ctx.DefaultQuery("page", "1"))
 	limit, _ := strconv.Atoi(ctx.DefaultQuery("limit", "10"))
 
-	userID := ctx.GetUint("user_id")
-	if userID == 0 {
-		responses.HandleError(ctx, c.logger, errors.New("Unauthorized"))
+	ctxUserID, exists := ctx.Get(framework.UID)
+	if !exists || ctxUserID == nil {
+		responses.HandleError(ctx, c.logger, errorz.ErrUserIDNotFound)
 		return
 	}
-
-	bookings, total, err := c.service.GetBookings(userID, page, limit)
+	uid := utils.AnyToUint(ctxUserID)
+	if uid == 0 {
+		responses.HandleError(ctx, c.logger, errorz.ErrUserIDNotFound)
+		return
+	}
+	bookings, total, err := c.service.GetBookings(uid, page, limit)
 	if err != nil {
 		responses.HandleError(ctx, c.logger, errors.New("Failed to fetch bookings"))
 		return
