@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"github.com/mukezhz/appointment-booking/domain/appointment"
 	"github.com/mukezhz/appointment-booking/domain/todo"
 	"github.com/mukezhz/appointment-booking/domain/user"
 
@@ -10,7 +9,6 @@ import (
 
 var Module = fx.Module("domain",
 	fx.Options(
-		appointment.Module,
 		todo.Module,
 		user.Module,
 	),
