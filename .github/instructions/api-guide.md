@@ -9,6 +9,7 @@ For each feature (e.g., appointments, users), create these files under `domain/<
 ```
 domain/<feature>/
 ├── controller.go   # HTTP handlers
+|-- constants.go<optional> # Add constants related to feature
 ├── dto.go         # Request/Response objects
 ├── errorz.go      # Domain-specific errors
 ├── module.go      # Dependency injection
@@ -27,6 +28,19 @@ type Feature struct {
     UUID   types.BinaryUUID `json:"uuid" gorm:"type:binary(16);uniqueIndex"`
     Name   string          `json:"name" gorm:"type:varchar(255)"`
     Status string          `json:"status" gorm:"type:varchar(20)"`
+}
+
+func (Feature) TableName() string {
+    return "features"
+}
+
+func (u *Feature) BeforeCreate(tx *gorm.DB) error {
+	if u.UUID.String() == (types.BinaryUUID{}).String() {
+		id, err := uuid.NewRandom()
+		u.UUID = types.BinaryUUID(id)
+		return err
+	}
+	return nil
 }
 
 func (f *Feature) Validate() error {
@@ -57,16 +71,22 @@ type FeatureResponse struct {
 
 ```go
 type Repository struct {
-    db     *gorm.DB
-    logger framework.Logger
+	db     infrastructure.Database
+	logger framework.Logger
 }
 
-func NewRepository(db *gorm.DB, logger framework.Logger) *Repository {
-    return &Repository{db: db, logger: logger}
+func NewRepository(
+	db infrastructure.Database,
+	logger framework.Logger,
+) *Repository {
+	return &Repository{
+		db:     db,
+		logger: logger,
+	}
 }
 
 func (r *Repository) Create(ctx context.Context, feature *models.Feature) error {
-    return r.db.WithContext(ctx).Create(feature).Error
+    return r.db.Model(&models.Feature{}).Create(feature).Error
 }
 ```
 
@@ -78,8 +98,14 @@ type Service struct {
     logger framework.Logger
 }
 
-func NewService(repo *Repository, logger framework.Logger) *Service {
-    return &Service{repo: repo, logger: logger}
+func NewService(
+    repo *Repository, 
+    logger framework.Logger,
+) *Service {
+    return &Service{
+        repo: repo, 
+        logger: logger,
+    }
 }
 
 func (s *Service) Create(ctx context.Context, req *CreateFeatureRequest) (*FeatureResponse, error) {
@@ -111,8 +137,14 @@ type Controller struct {
     logger  framework.Logger
 }
 
-func NewController(service *Service, logger framework.Logger) *Controller {
-    return &Controller{service: service, logger: logger}
+func NewController(
+    service *Service, 
+    logger framework.Logger,
+) *Controller {
+    return &Controller{
+        service: service, 
+        logger: logger,
+    }
 }
 
 func (c *Controller) Create(ctx *gin.Context) {
@@ -243,52 +275,9 @@ var Module = fx.Module("feature",
 - Include examples in comments
 - Keep API versioning consistent
 
-## 5. Testing
+## 5. Common Patterns
 
-### 5.1. Unit Tests
-```go
-func TestService_Create(t *testing.T) {
-    ctrl := gomock.NewController(t)
-    defer ctrl.Finish()
-    
-    mockRepo := mocks.NewMockRepository(ctrl)
-    service := NewService(mockRepo, logger)
-    
-    mockRepo.EXPECT().
-        Create(gomock.Any(), gomock.Any()).
-        Return(nil)
-    
-    result, err := service.Create(context.Background(), &CreateFeatureRequest{
-        Name:   "Test Feature",
-        Status: "active",
-    })
-    
-    assert.NoError(t, err)
-    assert.NotNil(t, result)
-}
-```
-
-### 5.2. Integration Tests
-```go
-func TestAPI_Create(t *testing.T) {
-    router := setupTestRouter()
-    
-    apitest.New().
-        Handler(router).
-        Post("/api/features").
-        JSON(CreateFeatureRequest{
-            Name:   "Test Feature",
-            Status: "active",
-        }).
-        Expect(t).
-        Status(http.StatusCreated).
-        End()
-}
-```
-
-## 6. Common Patterns
-
-### 6.1. Pagination
+### 5.1. Pagination
 ```go
 type PaginationQuery struct {
     Page  int `form:"page" binding:"required,min=1"`
@@ -312,7 +301,7 @@ func (r *Repository) List(ctx context.Context, p *PaginationQuery) ([]models.Fea
 }
 ```
 
-### 6.2. Search and Filtering
+### 5.2. Search and Filtering
 ```go
 type ListFeatureQuery struct {
     PaginationQuery
@@ -336,7 +325,7 @@ func (r *Repository) List(ctx context.Context, q *ListFeatureQuery) ([]models.Fe
 }
 ```
 
-### 6.3. Batch Operations
+### 5.3. Batch Operations
 ```go
 func (r *Repository) BatchCreate(ctx context.Context, features []*models.Feature) error {
     return r.db.WithContext(ctx).Transaction(func(tx *gorm.DB) error {
@@ -350,11 +339,11 @@ func (r *Repository) BatchCreate(ctx context.Context, features []*models.Feature
 }
 ```
 
-## 7. API Documentation with Bruno
+## 6. API Documentation with Bruno
 
 The project uses Bruno for API documentation and testing. API documentation is located in the `docs/` directory.
 
-### 7.1. Appointments API Endpoints
+### 6.1. Appointments API Endpoints
 
 #### Availability Management
 - `POST /api/appointments/availability` - Create availability slot
@@ -367,7 +356,7 @@ The project uses Bruno for API documentation and testing. API documentation is l
 
 See the Bruno files in `docs/appointments/` for detailed request/response examples and testing.
 
-### 7.2. Bruno File Structure
+### 6.2. Bruno File Structure
 ```
 docs/
 └── appointments/
@@ -379,7 +368,7 @@ docs/
     └── UpdateBookingStatus.bru # Update booking status
 ```
 
-### 7.3. Example Bruno Test
+### 6.3. Example Bruno Test
 ```bruno
 meta {
   name: CreateBooking
